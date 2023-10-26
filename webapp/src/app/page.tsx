@@ -4,6 +4,7 @@ import AlphaTabContextProvider from "./_store/alphaTab-context";
 import Overlay from "./_components/AlphaTab/OverLay";
 import TrackList from "./_components/AlphaTab/TrackList";
 import ScoreCanvas from "./_components/AlphaTab/ScoreCanvas";
+import Controls from "./_components/AlphaTab/Controls";
 
 export default function Home() {
   return (
@@ -17,15 +18,13 @@ export default function Home() {
           <Overlay />
           <div className="at-content">
             <div className="at-sidebar">
-              {/* <div className="at-sidebar-content"> */}
               <TrackList />
-              {/* </div> */}
             </div>
             <div className="at-viewport">
               <ScoreCanvas />
             </div>
           </div>
-          <div className="at-controls">Controls</div>
+          <Controls />
         </section>
       </AlphaTabContextProvider>
     </main>

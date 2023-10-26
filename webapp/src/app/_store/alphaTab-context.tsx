@@ -3,6 +3,7 @@ import Script from "next/script";
 import { useState, useEffect, createContext } from "react";
 
 export const AlphaTabContext = createContext({
+  score: { title: "", artist: "" },
   tracklist: null,
   tracks: [],
   activeTrack: null,
@@ -14,6 +15,7 @@ export const AlphaTabContext = createContext({
 });
 
 const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [score, setScore] = useState("https://www.alphatab.net/files/canon.gp");
   const [tracks, setTracks] = useState([]);
   const [apiReady, setApiReady] = useState(false);
   const [activeTrack, setActiveTrack] = useState<string | undefined>();
@@ -24,6 +26,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
     if (domReady) {
       apiInstance.scoreLoaded?.on((score: any) => {
         setTracks(score.tracks);
+        setScore(score);
       });
     }
   }, [apiInstance]);
@@ -50,6 +53,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
     initAlphaTab,
     apiReady,
     apiInstance,
+    score,
     tracks,
     activeTrack,
     setActiveTrack,

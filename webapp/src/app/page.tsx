@@ -13,15 +13,10 @@ export default function Home() {
       };
       const alphaTabInstance = new window.alphaTab.AlphaTabApi(tab.current, settings);
       // alphaTabInstance.file = "./radio.xml";
-      alphaTabInstance.scoreLoaded?.on(score => console.log("loaded", score));
+      alphaTabInstance.scoreLoaded?.on((score: any) => console.log("loaded", score));
     }
   };
-  useEffect(() => {
-    console.log("Well something happened", tab.current);
-    tab?.current.addEventListener("alphaTab.scoreLoaded", e => {
-      console.log("Score was loaded!", e.detail);
-    });
-  }, [tab]);
+
   if (!tab) {
     return <main>...loading</main>;
   }

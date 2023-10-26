@@ -37,6 +37,7 @@ export default function Home() {
   };
 
   const handleTrackClicked = (track: any, key?: string) => {
+    console.log(track);
     if (apiInstance) apiInstance.renderTracks([track]);
     setActiveTrack(key);
   };

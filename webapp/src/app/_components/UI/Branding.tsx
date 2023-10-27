@@ -3,7 +3,7 @@ import { Layout, Image, Row, Col, Space, Typography } from "antd";
 const { Header } = Layout;
 const { Title, Text } = Typography;
 
-export default function Branding({ style }: { style: any }) {
+export default function Branding({ style }: { style?: any }) {
   return (
     <Layout style={...style}>
       <Header>

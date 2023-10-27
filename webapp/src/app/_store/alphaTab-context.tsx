@@ -5,23 +5,22 @@ import { useState, useEffect, createContext } from "react";
 // https://alphatab.net/docs/reference/api
 
 export const AlphaTabContext = createContext({
-  score: { title: "", artist: "" },
-  tracklist: null,
+  score: {},
   tracks: [],
-  activeTrack: null,
-  setActiveTrack: () => {},
-  apiReady: null,
+  activeTrack: "",
+  setActiveTrack: (id: string) => {},
+  apiReady: false,
   apiInstance: null as AlphaTabApi,
   initAlphaTab: (el: HTMLElement) => el,
   events: (event: string, cb: any) => () => ({ event, cb }),
 });
 
 const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [score, setScore] = useState("https://www.alphatab.net/files/canon.gp");
+  const [score, setScore] = useState({});
   const [tracks, setTracks] = useState([]);
   const [apiReady, setApiReady] = useState(false);
-  const [activeTrack, setActiveTrack] = useState<string | undefined>();
-  const [apiInstance, setApiInstance] = useState<AlphaTabApi | false>(false);
+  const [activeTrack, setActiveTrack] = useState<string>("");
+  const [apiInstance, setApiInstance] = useState<any>(false);
 
   useEffect(() => {
     const domReady = !!apiInstance;
@@ -74,6 +73,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
         src="https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/alphaTab.min.js"
         onLoad={handleScriptLoaded}
       />
+      {/* @ts-ignore */}
       <AlphaTabContext.Provider value={ctx}>{children}</AlphaTabContext.Provider>
     </>
   );

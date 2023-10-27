@@ -5,8 +5,8 @@ export default function ScoreCanvas({ style }: { style?: any }) {
   const tab = useRef(null);
   const { initAlphaTab, apiReady } = useContext(AlphaTabContext);
   useEffect(() => {
-    if (apiReady && tab.current) initAlphaTab(tab.current);
-  }, [apiReady, tab]);
+    if (apiReady && tab.current && initAlphaTab) initAlphaTab(tab.current);
+  }, [apiReady, tab, initAlphaTab]);
 
   return <div style={...style} ref={tab}></div>;
 }

@@ -7,10 +7,10 @@ export default function Overlay() {
 
   useEffect(() => {
     if (apiInstance) {
-      events("renderStarted", () => (overlay.current.style.display = "flex"));
-      events("renderFinished", () => (overlay.current.style.display = "none"));
+      events("renderStarted", () => (overlay?.current ? (overlay.current.style.display = "flex") : null));
+      events("renderFinished", () => (overlay?.current ? (overlay.current.style.display = "none") : null));
     }
-  }, [apiInstance]);
+  }, [apiInstance, events]);
   return (
     <div className="at-overlay" ref={overlay}>
       <div className="at-overlay-content">Music Sheet is loading ....</div>

@@ -8,11 +8,12 @@ import Controls from "./_components/AlphaTab/ScoreControls";
 import { Button, Col, Layout, Row, Tooltip } from "antd";
 import Branding from "./_components/UI/Branding";
 import AppIcon from "./_components/UI/AppIcon";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const { Content, Footer, Header, Sider } = Layout;
 
 export default function Home() {
   const [settings, setSettings] = useState(false);
+
   const handleSettingsToggle = () => {
     setSettings(prevS => !prevS);
   };
@@ -43,8 +44,8 @@ export default function Home() {
             <Sider>
               <TrackList />
             </Sider>
-            <Content style={{ height: "calc(100vh - 64px)" }}>
-              <ScoreCanvas style={{ height: "100%", overflowY: "scroll" }} />
+            <Content style={{ height: "calc(100vh - 217px)", overflowY: "scroll" }} id="scroller">
+              <ScoreCanvas />
             </Content>
           </Layout>
           <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>

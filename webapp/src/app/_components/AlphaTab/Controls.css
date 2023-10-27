@@ -62,23 +62,24 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0;
 
   &.small {
     gap: 0;
     .anticon {
-      --icon-size: 2rem;
+      --icon-size: 1.618rem;
     }
   }
 
   .anticon {
-    --icon-size: 2.5rem;
-    width: 2.5rem;
+    --icon-size: 1.618rem;
+    width: 1.618rem;
   }
   .speed-count {
     position: absolute;
     left: 3rem;
     top: 0;
+    opacity: 0.7;
   }
   .ant-slider {
     flex: 1;

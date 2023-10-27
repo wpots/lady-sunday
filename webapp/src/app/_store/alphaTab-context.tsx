@@ -39,11 +39,17 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
       const settings = {
         file: "https://www.alphatab.net/files/canon.gp",
         // file: "./radio.xml",
+        player: {
+          enablePlayer: true,
+          soundFont: "https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2",
+          scrollElement: el.closest("#scroller"),
+        },
       };
       const alphaTabInstance: AlphaTabApi = new window.alphaTab.AlphaTabApi(el, settings);
       setApiInstance(alphaTabInstance);
       alphaTabInstance.renderStarted.on(() => console.log("started"));
       alphaTabInstance.renderFinished.on(() => console.log("done"));
+      alphaTabInstance.playerReady.on(() => console.log("player ready"));
     }
   };
 

@@ -16,7 +16,7 @@ export default function TrackItem({ id, track }: TrackItemProps) {
   return (
     <div className={`at-track ${activeTrack === id ? "active" : undefined}`} onClick={handleTrackClick}>
       <div className="at-track-icon">
-        <Image src={imgSrc} width={48} height={48} alt={track.name} onError={e => setImgSrc("/icons/004-flute.png")} />
+        <Image src={imgSrc} width={48} height={48} alt={track.name} />
       </div>
       <div className="at-track-details">
         <div className="at-track-name">{track.name}</div>

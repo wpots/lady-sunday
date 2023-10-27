@@ -4,29 +4,54 @@ import AlphaTabContextProvider from "./_store/alphaTab-context";
 import Overlay from "./_components/AlphaTab/OverLay";
 import TrackList from "./_components/AlphaTab/TrackList";
 import ScoreCanvas from "./_components/AlphaTab/ScoreCanvas";
-import Controls from "./_components/AlphaTab/Controls";
+import Controls from "./_components/AlphaTab/ScoreControls";
+import { Button, Col, Layout, Row, Tooltip } from "antd";
+import Branding from "./_components/UI/Branding";
+import AppIcon from "./_components/UI/AppIcon";
+import { useState } from "react";
+const { Content, Footer, Header, Sider } = Layout;
 
 export default function Home() {
+  const [settings, setSettings] = useState(false);
+  const handleSettingsToggle = () => {
+    setSettings(prevS => !prevS);
+  };
   return (
-    <main>
-      <header>
-        <h1>Lady Sunday</h1>
-        <small>omdat mijn moeder mij verkeerd verstond...</small>
-      </header>
+    <>
+      <Branding />
       <AlphaTabContextProvider>
-        <section className="at-wrap">
+        <Layout style={{ position: "sticky", top: "0", height: "calc(100vh - 64px)", zIndex: "1000" }}>
           <Overlay />
-          <div className="at-content">
-            <div className="at-sidebar">
+          <Header>
+            <Row justify="space-between">
+              <Col>
+                <Tooltip title="track settings">
+                  <Button
+                    type="primary"
+                    size="large"
+                    shape="circle"
+                    icon={<AppIcon name="tracks" />}
+                    onClick={handleSettingsToggle}
+                    className={settings ? "active" : undefined}
+                  />
+                </Tooltip>
+              </Col>
+              <Col>Document controls here (download midi/pdf/xml)</Col>
+            </Row>
+          </Header>
+          <Layout style={{ height: "calc(100vh - 152px)" }} hasSider>
+            <Sider>
               <TrackList />
-            </div>
-            <div className="at-viewport">
-              <ScoreCanvas />
-            </div>
-          </div>
-          <Controls />
-        </section>
+            </Sider>
+            <Content style={{ height: "calc(100vh - 64px)" }}>
+              <ScoreCanvas style={{ height: "100%", overflowY: "scroll" }} />
+            </Content>
+          </Layout>
+          <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
+            <Controls />
+          </Footer>
+        </Layout>
       </AlphaTabContextProvider>
-    </main>
+    </>
   );
 }

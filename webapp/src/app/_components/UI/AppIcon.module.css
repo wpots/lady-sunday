@@ -1,0 +1,7 @@
+.svg-icon {
+  width: var(--icon-size, 1.5rem);
+  height: auto;
+  aspect-ratio: 1;
+  color: currentColor;
+  fill: currentColor;
+}

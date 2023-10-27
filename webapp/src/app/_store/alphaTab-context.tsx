@@ -1,6 +1,8 @@
 import Script from "next/script";
-
+// @ts-ignore lib should fix typings or package.json exports
+import * as AlphaTabApi from "@coderline/alphatab/dist/alphaTab.d.ts";
 import { useState, useEffect, createContext } from "react";
+// https://alphatab.net/docs/reference/api
 
 export const AlphaTabContext = createContext({
   score: { title: "", artist: "" },
@@ -9,7 +11,7 @@ export const AlphaTabContext = createContext({
   activeTrack: null,
   setActiveTrack: () => {},
   apiReady: null,
-  apiInstance: null,
+  apiInstance: null as AlphaTabApi,
   initAlphaTab: (el: HTMLElement) => el,
   events: (event: string, cb: any) => () => ({ event, cb }),
 });
@@ -19,7 +21,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
   const [tracks, setTracks] = useState([]);
   const [apiReady, setApiReady] = useState(false);
   const [activeTrack, setActiveTrack] = useState<string | undefined>();
-  const [apiInstance, setApiInstance] = useState<Record<any, any> | false>(false);
+  const [apiInstance, setApiInstance] = useState<AlphaTabApi | false>(false);
 
   useEffect(() => {
     const domReady = !!apiInstance;
@@ -38,7 +40,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
         file: "https://www.alphatab.net/files/canon.gp",
         // file: "./radio.xml",
       };
-      const alphaTabInstance = new window.alphaTab.AlphaTabApi(el, settings);
+      const alphaTabInstance: AlphaTabApi = new window.alphaTab.AlphaTabApi(el, settings);
       setApiInstance(alphaTabInstance);
       alphaTabInstance.renderStarted.on(() => console.log("started"));
       alphaTabInstance.renderFinished.on(() => console.log("done"));
@@ -57,7 +59,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
     tracks,
     activeTrack,
     setActiveTrack,
-    events: (event: string, cb: any) => apiInstance[event].on(cb),
+    events: (event: string, cb: any) => apiInstance[event as keyof AlphaTabApi].on(cb),
   };
 
   return (

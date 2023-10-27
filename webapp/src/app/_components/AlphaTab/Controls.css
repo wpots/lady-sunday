@@ -57,3 +57,30 @@
 .at-song-title {
   font-weight: bold;
 }
+
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &.small {
+    gap: 0;
+    .anticon {
+      --icon-size: 2rem;
+    }
+  }
+
+  .anticon {
+    --icon-size: 2.5rem;
+    width: 2.5rem;
+  }
+  .speed-count {
+    position: absolute;
+    left: 3rem;
+    top: 0;
+  }
+  .ant-slider {
+    flex: 1;
+  }
+}

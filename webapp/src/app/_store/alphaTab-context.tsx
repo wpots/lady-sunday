@@ -1,3 +1,4 @@
+"use client";
 import Script from "next/script";
 // @ts-ignore lib should fix typings or package.json exports
 import * as AlphaTabApi from "@coderline/alphatab/dist/alphaTab.d.ts";
@@ -11,11 +12,12 @@ export const AlphaTabContext = createContext({
   setActiveTrack: (id: string) => {},
   apiReady: false,
   apiInstance: null as AlphaTabApi,
-  initAlphaTab: (el: HTMLElement) => el,
+  initAlphaTab: (el: any) => el,
   events: (event: string, cb: any) => () => ({ event, cb }),
 });
 
 const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) => {
+  console.log("AT CTX");
   const [score, setScore] = useState({});
   const [tracks, setTracks] = useState([]);
   const [apiReady, setApiReady] = useState(false);
@@ -30,7 +32,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
         setScore(score);
       });
     }
-  }, [apiInstance]);
+  });
 
   const initAlphaTab = (el: HTMLElement) => {
     console.log("init");

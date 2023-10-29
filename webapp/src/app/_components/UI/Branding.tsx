@@ -8,9 +8,11 @@ export default function Branding({ style }: { style?: any }) {
     <Layout>
       <Header>
         <Row gutter={16}>
-          {/* <Col span={5}><Image src="/assets/images/logo.png" alt="Lady Sunday" width="100%" /></Col> */}
+          <Col span={5}>
+            <Image src="/assets/images/logo.png" alt="Lady Sunday" width="100%" />
+          </Col>
 
-          <Col span={24}>
+          <Col span={19}>
             <Title style={{ color: "white" }} level={1}>
               Lady Sunday
             </Title>

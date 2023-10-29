@@ -2,17 +2,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { AlphaTabContext } from "../../_store/alphaTab-context";
 
-import {
-  SearchOutlined,
-  DashOutlined,
-  FieldTimeOutlined,
-  PlayCircleFilled,
-  PauseCircleFilled,
-  StepBackwardFilled,
-  PauseOutlined,
-} from "@ant-design/icons";
+import { StepBackwardFilled } from "@ant-design/icons";
 import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider } from "antd";
-import { Footer } from "antd/es/layout/layout";
+
 // https://alphatab.net/docs/reference/api
 
 import "./Controls.css";

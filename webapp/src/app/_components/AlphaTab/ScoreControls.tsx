@@ -1,32 +1,39 @@
+"use client";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AlphaTabContext } from "../../_store/alphaTab-context";
 
-import { SearchOutlined, DashOutlined, FieldTimeOutlined } from "@ant-design/icons";
-import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider } from "antd";
+import { Button, Tooltip, Slider, Row, Col, Space } from "antd";
 import { Footer } from "antd/es/layout/layout";
 // https://alphatab.net/docs/reference/api
 
-import "./Controls.css";
 import AppIcon from "../UI/AppIcon";
 import PlayerControls from "./PlayerControls";
+import "./Controls.css";
+
 export default function Controls() {
-  const { score, apiInstance } = useContext(AlphaTabContext);
-  const [zoom, setZoom] = useState("100");
+  const { apiInstance } = useContext(AlphaTabContext);
+
   const [speed, setSpeed] = useState(1.0);
   const [countIn, setCountIn] = useState(false);
   const [metronome, setMetronome] = useState(false);
 
   useEffect(() => {
     if (apiInstance) apiInstance.playbackSpeed = speed;
-  }, [speed, apiInstance]);
 
-  useEffect(() => {
-    if (apiInstance) apiInstance.countInVolume = !countIn ? metronome || 0.5 : false;
-  }, [apiInstance, countIn, metronome]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [speed]);
 
   useEffect(() => {
     if (apiInstance) apiInstance.metronomeVolume = metronome;
-  }, [apiInstance, metronome]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countIn, metronome]);
+
+  useEffect(() => {
+    if (apiInstance) apiInstance.countInVolume = !countIn ? metronome || 0.5 : false;
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [metronome]);
 
   const handleSpeedChange = (speed: number) => {
     setSpeed(speed);

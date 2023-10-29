@@ -1,3 +1,4 @@
+"use client";
 import { useContext, useEffect, useRef, useState } from "react";
 import { AlphaTabContext } from "../../_store/alphaTab-context";
 
@@ -17,18 +18,20 @@ import { Footer } from "antd/es/layout/layout";
 import "./Controls.css";
 import AppIcon from "../UI/AppIcon";
 export default function PlayerControls() {
-  const { score, apiInstance } = useContext(AlphaTabContext);
+  const { apiInstance } = useContext(AlphaTabContext);
   const [volume, setVolume] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (apiInstance) apiInstance.playPause();
-  }, [isPlaying, apiInstance]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPlaying]);
 
   useEffect(() => {
     if (apiInstance) apiInstance.masterVolume = volume;
-  }, [apiInstance, volume]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [volume]);
 
   const handleVolumeChange = (volume: number) => {
     setVolume(volume);

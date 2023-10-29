@@ -2,14 +2,21 @@
 
 import { AlphaTabContext } from "@/app/_store/alphaTab-context";
 import { Button, Space } from "antd";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+export type Song = {
+  id: number;
+  name: string;
+  file: string;
+};
 
 export default function SourceControls() {
-  const [songSelected, setSongSelected] = useState(1);
+  const [songSelected, setSongSelected] = useState<Song>({ id: 1, name: "Maria", file: "./maria.gp5" });
   const { apiInstance } = useContext(AlphaTabContext);
-  const handleSongSelected = song => {
-    console.log(song);
-    if (apiInstance) apiInstance.load(song.file);
+  useEffect(() => {
+    if (apiInstance) apiInstance.load(songSelected.file);
+  }, [songSelected]);
+  const handleSongSelected = (song: Song) => {
     setSongSelected(song);
   };
 
@@ -20,7 +27,7 @@ export default function SourceControls() {
         { id: 1, name: "Maria", file: "./maria.gp5" },
         { id: 2, name: "Suddenly I See", file: "./suddenly.gp4" },
         { id: 3, name: "You Know I'm No Good", file: "./nogood.gp5" },
-      ].map((song: Record<any, any>) => (
+      ].map((song: Song) => (
         <Button
           onClick={() => handleSongSelected(song)}
           key={song.id}

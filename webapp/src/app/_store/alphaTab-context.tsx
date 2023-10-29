@@ -38,8 +38,8 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
       if (apiReady) {
         console.log("call at-init");
         const settings = {
-          file: "https://www.alphatab.net/files/canon.gp",
-          // file: "./radio.xml",
+          // file: "https://www.alphatab.net/files/canon.gp",
+          file: "./maria.gp5",
           player: {
             enablePlayer: true,
             soundFont: "https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2",

@@ -42,6 +42,7 @@ export default function SourceControls() {
         { id: 3, name: "You Know I'm No Good", file: "./nogood.gp5" },
       ].map((song: Song) => (
         <Button
+          type="primary"
           onClick={() => handleSongSelected(song)}
           key={song.id}
           className={songSelected.id === song.id ? "active" : undefined}
@@ -50,7 +51,7 @@ export default function SourceControls() {
         </Button>
       ))}
 
-      <Button>
+      <Button type="primary">
         <label>
           <AppIcon name="more-2" style={{ width: "10px" }} />
           <input

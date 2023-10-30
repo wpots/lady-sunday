@@ -1,30 +1,18 @@
 import type { Metadata } from "next";
+import "./_assets/theme.css";
 import "./globals.css";
-import { ConfigProvider } from "antd";
+import StyledComponentsRegistry from "./_lib/AntdRegistry";
 
 export const metadata: Metadata = {
   title: "Lady Sunday",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const themeConfig = {
-    token: {},
-    components: {
-      Layout: {
-        headerColor: "white",
-        siderBg: "green",
-      },
-      Typography: {
-        titleMarginTop: "1rem",
-      },
-    },
-  };
-  // https://ant.design/components/layout#specification
   return (
     <html lang="en">
-      <ConfigProvider theme={themeConfig}>
-        <body>{children}</body>
-      </ConfigProvider>
+      <body>
+        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+      </body>
     </html>
   );
 }

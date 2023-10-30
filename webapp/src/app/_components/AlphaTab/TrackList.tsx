@@ -6,6 +6,8 @@ import { Collapse } from "antd";
 import TrackControls from "./TrackControls";
 import { DownOutlined } from "@ant-design/icons";
 
+import "./TrackList.scss";
+
 export default function TrackList() {
   const { tracks } = useContext(AlphaTabContext);
 
@@ -17,11 +19,11 @@ export default function TrackList() {
 
   return (
     <Collapse
-      size="large"
+      size="small"
       items={extendedTracks}
-      expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 90 : 0} />}
+      expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} />}
       expandIconPosition="end"
-      style={{ height: "100%", overflowY: "scroll", borderRadius: 0, marginBottom: "88px" }}
+      style={{ width: "100%", height: "100%", overflowY: "scroll", borderRadius: 0, marginBottom: "88px" }}
     />
   );
 }

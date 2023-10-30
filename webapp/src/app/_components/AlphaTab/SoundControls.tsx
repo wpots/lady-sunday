@@ -49,17 +49,15 @@ export default function SoundControls({ onTrackControls, trackControlsOpen }: IP
       <Tooltip title="track settings">
         <Button
           style={{ marginRight: "1rem" }}
-          type="primary"
           ghost={!trackControlsOpen}
           size="large"
-          shape="circle"
           icon={<AppIcon name="settings-2" />}
           onClick={() => onTrackControls()}
           className={trackControlsOpen ? "active" : undefined}
         />
       </Tooltip>
       <div className="slider-wrapper">
-        <AppIcon name="sound-2" style={{ color: "#1677ff" }} />
+        <AppIcon name="sound-2" />
         <Slider
           min={0}
           max={1}

@@ -34,9 +34,7 @@ export default function PlayerControls() {
     <Space>
       <Tooltip title="libo" style={{ marginLeft: "auto" }}>
         <Button
-          type="primary"
           size="large"
-          shape="circle"
           disabled={isPlaying && progress === 0}
           icon={<AppIcon name="backward-2" />}
           onClick={handleStop}
@@ -44,23 +42,14 @@ export default function PlayerControls() {
       </Tooltip>
       <Tooltip title={isPlaying ? "pause" : "play"}>
         <Button
-          type="primary"
           size="large"
-          shape="circle"
           icon={<AppIcon name={isPlaying ? "pause-2" : "play-2"} />}
           onClick={handlePlayPause}
           className={isPlaying ? "active" : undefined}
         />
       </Tooltip>
       <Tooltip title="loop" style={{ marginLeft: "auto" }}>
-        <Button
-          type="primary"
-          ghost={!loop}
-          size="large"
-          shape="circle"
-          icon={<AppIcon name="loop-2" />}
-          onClick={handlePlayPause}
-        />
+        <Button ghost={!loop} size="large" icon={<AppIcon name="loop-2" />} onClick={handlePlayPause} />
       </Tooltip>
     </Space>
   );

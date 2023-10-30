@@ -12,7 +12,6 @@ type Toggles = {
   solo: boolean;
 };
 
-import "./Controls.css";
 import AppIcon from "../UI/AppIcon";
 export default function TrackControls({ id }: { id: number }) {
   const { apiInstance } = useContext(AlphaTabContext);
@@ -45,12 +44,16 @@ export default function TrackControls({ id }: { id: number }) {
     <>
       <Col span={24}>
         <Space style={{ width: "100%", marginBottom: ".5rem", justifyContent: "space-between" }}>
-          <Button onClick={() => handleToggles("mute")}>mute</Button>
-          <Button onClick={() => handleToggles("solo")}>solo</Button>
+          <Button ghost={!toggles.mute} onClick={() => handleToggles("mute")}>
+            mute
+          </Button>
+          <Button ghost={!toggles.solo} onClick={() => handleToggles("solo")}>
+            solo
+          </Button>
         </Space>
       </Col>
       <Col span={24} className="slider-wrapper">
-        <AppIcon name="sound-2" style={{ color: "#1677ff" }} />
+        <AppIcon name="sound-2" />
         <Slider
           min={0}
           max={1}

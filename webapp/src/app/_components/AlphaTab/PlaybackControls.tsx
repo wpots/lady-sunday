@@ -2,13 +2,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { AlphaTabContext } from "../../_store/alphaTab-context";
 
-import { Button, Tooltip, Slider, Row, Col, Space } from "antd";
-import { Footer } from "antd/es/layout/layout";
+import { Button, Tooltip, Slider, Space } from "antd";
+
 // https://alphatab.net/docs/reference/api
 
 import AppIcon from "../UI/AppIcon";
-import PlayerControls from "./PlayerControls";
-import "./Controls.css";
+import "./PlaybackControls.scss";
 
 export default function PlaybackControls() {
   const { apiInstance } = useContext(AlphaTabContext);
@@ -48,16 +47,14 @@ export default function PlaybackControls() {
   return (
     <Space>
       <div className="slider-wrapper">
-        <AppIcon name="speed-2" style={{ color: "#1677ff" }} />
+        <AppIcon name="speed-2" />
         <small className="speed-count">speed: {speed}</small>
         <Slider min={0} max={2} onChange={handleSpeedChange} value={typeof speed === "number" ? speed : 0} step={0.1} />
       </div>
       <Tooltip title="count in">
         <Button
-          type="primary"
           ghost={!countIn}
           size="large"
-          shape="circle"
           icon={<AppIcon name="countin-2" />}
           onClick={handleCountIn}
           className={countIn ? "active" : undefined}
@@ -65,10 +62,8 @@ export default function PlaybackControls() {
       </Tooltip>
       <Tooltip title="metronome">
         <Button
-          type="primary"
           ghost={!metronome}
           size="large"
-          shape="circle"
           icon={<AppIcon name="metronome-2" />}
           onClick={handleMetronome}
           className={metronome ? "active" : undefined}

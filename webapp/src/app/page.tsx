@@ -3,22 +3,22 @@ import { useState } from "react";
 import { Col, Layout, Row, Tooltip, Button, Space, ConfigProvider } from "antd";
 import AlphaTabContextProvider from "./_store/alphaTab-context";
 import Branding from "./_components/UI/Branding";
-import AppIcon from "./_components/UI/AppIcon";
 import Overlay from "./_components/AlphaTab/OverLay";
 import TrackList from "./_components/AlphaTab/TrackList";
 import ScoreCanvas from "./_components/AlphaTab/ScoreCanvas";
 import SourceControls from "./_components/AlphaTab/SourceControls";
 import PlayerControls from "./_components/AlphaTab/PlayerControls";
 import PlaybackControls from "./_components/AlphaTab/PlaybackControls";
-import "./page.css";
 import SoundControls from "./_components/AlphaTab/SoundControls";
+import themeConfig from "./_theme/ladySunday";
 
+import "./page.scss";
 const { Content, Footer, Header, Sider } = Layout;
 
 export default function Home() {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <>
+    <ConfigProvider theme={themeConfig}>
       <Branding />
       <AlphaTabContextProvider>
         <Layout style={{ position: "sticky", top: "0", height: "calc(100vh - 64px)", zIndex: "1000" }}>
@@ -32,7 +32,7 @@ export default function Home() {
           </Header>
           <Layout style={{ height: "calc(100vh - 152px)" }} hasSider>
             <Sider
-              style={{ display: "flex", background: "none" }}
+              style={{ display: "flex" }}
               collapsible
               collapsed={collapsed}
               onCollapse={val => setCollapsed(val)}
@@ -45,11 +45,11 @@ export default function Home() {
             </Content>
           </Layout>
           <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
-            <Row>
+            <Row style={{ gap: ".5rem" }}>
               <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
                 <SoundControls onTrackControls={() => setCollapsed(!collapsed)} trackControlsOpen={!collapsed} />
               </Col>
-              <Col span={12} style={{ display: "flex", justifyContent: "center" }}>
+              <Col span={11} style={{ display: "flex", justifyContent: "center" }}>
                 <PlayerControls />
               </Col>
               <Col span={6} style={{ display: "flex", justifyContent: "end" }}>
@@ -59,6 +59,6 @@ export default function Home() {
           </Footer>
         </Layout>
       </AlphaTabContextProvider>
-    </>
+    </ConfigProvider>
   );
 }

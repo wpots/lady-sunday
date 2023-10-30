@@ -1,0 +1,28 @@
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 10rem;
+
+  &.small {
+    gap: 0;
+    .anticon {
+      --icon-size: 1.618rem;
+    }
+  }
+
+  .anticon {
+    --icon-size: 1.618rem;
+    width: 1.618rem;
+  }
+  .speed-count {
+    position: absolute;
+    left: 2rem;
+    top: -.5rem;
+    opacity: 0.7;
+  }
+  .ant-slider {
+    flex: 1;
+  }
+}

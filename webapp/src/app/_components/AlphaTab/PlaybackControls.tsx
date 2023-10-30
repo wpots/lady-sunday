@@ -10,7 +10,7 @@ import AppIcon from "../UI/AppIcon";
 import PlayerControls from "./PlayerControls";
 import "./Controls.css";
 
-export default function Controls() {
+export default function PlaybackControls() {
   const { apiInstance } = useContext(AlphaTabContext);
 
   const [speed, setSpeed] = useState(1.0);
@@ -46,37 +46,34 @@ export default function Controls() {
   };
 
   return (
-    <Row>
-      <Col span={4} className="slider-wrapper">
-        <AppIcon name="speed" style={{ color: "#1677ff" }} />
+    <Space>
+      <div className="slider-wrapper">
+        <AppIcon name="speed-2" style={{ color: "#1677ff" }} />
         <small className="speed-count">speed: {speed}</small>
         <Slider min={0} max={2} onChange={handleSpeedChange} value={typeof speed === "number" ? speed : 0} step={0.1} />
-      </Col>
-      <Col span={4}>
-        <Space>
-          <Tooltip title="count in">
-            <Button
-              type="primary"
-              size="large"
-              shape="circle"
-              icon={<AppIcon name="count-in" />}
-              onClick={handleCountIn}
-              className={countIn ? "active" : undefined}
-            />
-          </Tooltip>
-          <Tooltip title="metronome">
-            <Button
-              type="primary"
-              size="large"
-              shape="circle"
-              icon={<AppIcon name="metronome" />}
-              onClick={handleMetronome}
-              className={metronome ? "active" : undefined}
-            />
-          </Tooltip>
-        </Space>
-      </Col>
-      <PlayerControls />
-    </Row>
+      </div>
+      <Tooltip title="count in">
+        <Button
+          type="primary"
+          ghost={!countIn}
+          size="large"
+          shape="circle"
+          icon={<AppIcon name="countin-2" />}
+          onClick={handleCountIn}
+          className={countIn ? "active" : undefined}
+        />
+      </Tooltip>
+      <Tooltip title="metronome">
+        <Button
+          type="primary"
+          ghost={!metronome}
+          size="large"
+          shape="circle"
+          icon={<AppIcon name="metronome-2" />}
+          onClick={handleMetronome}
+          className={metronome ? "active" : undefined}
+        />
+      </Tooltip>
+    </Space>
   );
 }

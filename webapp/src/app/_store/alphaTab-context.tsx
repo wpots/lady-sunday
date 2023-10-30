@@ -31,12 +31,16 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
       setTracks(score.tracks);
       setScore(score);
     });
+
+    apiInstance.noteMouseUp?.on((note: any) => {
+      console.log("here");
+      apiInstance.playNote(note);
+    });
   }
 
   const initAlphaTab = useCallback(
     (el: HTMLElement) => {
       if (apiReady) {
-        console.log("call at-init");
         const settings = {
           // file: "https://www.alphatab.net/files/canon.gp",
           file: "./maria.gp5",

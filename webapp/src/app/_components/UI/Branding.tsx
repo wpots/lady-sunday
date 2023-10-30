@@ -8,15 +8,17 @@ export default function Branding({ style }: { style?: any }) {
     <Layout>
       <Header>
         <Row gutter={16}>
-          <Col span={5}>
-            <Image src="/assets/images/logo.png" alt="Lady Sunday" width="100%" />
-          </Col>
-
           <Col span={19}>
-            <Title style={{ color: "white" }} level={1}>
-              Lady Sunday
-            </Title>
-            {/* <Text type="secondary">omdat mijn moeder mij verkeerd verstond...</Text> */}
+            <Title level={2}>Lady Sunday</Title>
+          </Col>
+          <Col span={5}>
+            <Image
+              src="/assets/images/logo.png"
+              alt="Lady Sunday"
+              width="100%"
+              preview={false}
+              style={{ zIndex: "2000", position: "relative" }}
+            />
           </Col>
         </Row>
       </Header>

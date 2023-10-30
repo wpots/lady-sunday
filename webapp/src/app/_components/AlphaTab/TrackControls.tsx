@@ -8,25 +8,25 @@ import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider } from "antd"
 // https://alphatab.net/docs/reference/api
 
 type Toggles = {
-  mute:boolean,
-  solo: boolean
-}
+  mute: boolean;
+  solo: boolean;
+};
 
 import "./Controls.css";
 import AppIcon from "../UI/AppIcon";
-export default function PlayerControls() {
+export default function TrackControls({ id }: { id: number }) {
   const { apiInstance } = useContext(AlphaTabContext);
   const [volume, setVolume] = useState(1);
-  const [toggles, setToggles] = useState<Toggles>({mute:false, solo:false});
-
+  const [toggles, setToggles] = useState<Toggles>({ mute: false, solo: false });
 
   useEffect(() => {
-    if (apiInstance) apiInstance.playPause();
+    if (apiInstance && id) apiInstance.changeTrackMute([apiInstance.score.tracks[id]], toggles.mute);
+    if (apiInstance && id) apiInstance.changeTrackSolo([apiInstance.score.tracks[id]], toggles.solo);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [toggles]);
+  }, [toggles, id]);
 
   useEffect(() => {
-    if (apiInstance) apiInstance.masterVolume = volume;
+    if (apiInstance) apiInstance.changeTrackVolume = volume;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [volume]);
 
@@ -34,24 +34,23 @@ export default function PlayerControls() {
     setVolume(volume);
   };
 
-
   const handleToggles = (type: string) => {
     setToggles(prev => ({
       ...prev,
-      prev[type as keyof Toggles]: !prev[type as keyof Toggles]
-    })
-    )
+      [type]: !prev[type as keyof Toggles],
+    }));
   };
 
   return (
     <>
-      <Col span={8} style={{ display: "flex", justifyContent: "center" }}>
-        <Space>
-<Button onClick={() => handleToggles('mute')}>mute</Button><Button onClick={() => handleToggles('solo')}>solo</Button>
+      <Col span={24}>
+        <Space style={{ width: "100%", marginBottom: ".5rem", justifyContent: "space-between" }}>
+          <Button onClick={() => handleToggles("mute")}>mute</Button>
+          <Button onClick={() => handleToggles("solo")}>solo</Button>
         </Space>
       </Col>
-      <Col span={4} offset={4} className="slider-wrapper small">
-        <AppIcon name="volume-icon" style={{ color: "#1677ff" }} />
+      <Col span={24} className="slider-wrapper">
+        <AppIcon name="sound-2" style={{ color: "#1677ff" }} />
         <Slider
           min={0}
           max={1}

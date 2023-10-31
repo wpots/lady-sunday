@@ -7,22 +7,32 @@ import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider } from "antd"
 
 // https://alphatab.net/docs/reference/api
 
-type Toggles = {
-  mute: boolean;
-  solo: boolean;
+export type Toggles = {
+  mute?: boolean;
+  solo?: boolean;
 };
 
+export type TrackToggles = { [id: number]: Toggles };
+
+interface ITrackControlsProps {
+  id: number;
+  onToggleChange: (toggles: TrackToggles) => void;
+}
+
 import AppIcon from "../UI/AppIcon";
-export default function TrackControls({ id }: { id: number }) {
+export default function TrackControls({ id, onToggleChange }: ITrackControlsProps) {
   const { apiInstance } = useContext(AlphaTabContext);
   const [volume, setVolume] = useState(1);
-  const [toggles, setToggles] = useState<Toggles>({ mute: false, solo: false });
+  const [mute, setMute] = useState(false);
+  const [solo, setSolo] = useState(false);
 
   useEffect(() => {
-    if (apiInstance && id) apiInstance.changeTrackMute([apiInstance.score.tracks[id]], toggles.mute);
-    if (apiInstance && id) apiInstance.changeTrackSolo([apiInstance.score.tracks[id]], toggles.solo);
+    console.log("d", mute, solo);
+    if (apiInstance && id) apiInstance.changeTrackMute([apiInstance.score.tracks[id]], mute);
+    if (apiInstance && id) apiInstance.changeTrackSolo([apiInstance.score.tracks[id]], solo);
+    onToggleChange({ [id]: { mute, solo } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [toggles, id]);
+  }, [mute, solo]);
 
   useEffect(() => {
     if (apiInstance) apiInstance.changeTrackVolume = volume;
@@ -34,20 +44,26 @@ export default function TrackControls({ id }: { id: number }) {
   };
 
   const handleToggles = (type: string) => {
-    setToggles(prev => ({
-      ...prev,
-      [type]: !prev[type as keyof Toggles],
-    }));
+    console.log("h", mute, solo);
+    if (type === "mute") {
+      if (!mute && solo) setSolo(!solo);
+      setMute(!mute);
+    }
+
+    if (type === "solo") {
+      if (!solo && mute) setMute(!mute);
+      setSolo(!solo);
+    }
   };
 
   return (
     <>
       <Col span={24}>
         <Space style={{ width: "100%", marginBottom: ".5rem", justifyContent: "space-between" }}>
-          <Button ghost={!toggles.mute} onClick={() => handleToggles("mute")}>
+          <Button ghost={!mute} onClick={() => handleToggles("mute")}>
             mute
           </Button>
-          <Button ghost={!toggles.solo} onClick={() => handleToggles("solo")}>
+          <Button ghost={!solo} onClick={() => handleToggles("solo")}>
             solo
           </Button>
         </Space>

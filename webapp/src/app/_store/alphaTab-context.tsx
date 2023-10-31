@@ -38,6 +38,10 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
     });
   }
 
+  // if (tracks?.length > 0) {
+  //   apiInstance.renderTracks(tracks);
+  // }
+
   const initAlphaTab = useCallback(
     (el: HTMLElement) => {
       if (apiReady) {

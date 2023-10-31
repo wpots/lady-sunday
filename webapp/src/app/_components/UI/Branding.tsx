@@ -14,13 +14,13 @@ export default function Branding({ style }: { style?: any }) {
                 Lady Sunday
               </Title>
             </Col>
-            <Col span={5}>
+            <Col span={5} style={{ textAlign: "right" }}>
               <Image
                 src="/assets/images/logo.png"
                 alt="Lady Sunday"
                 width="100%"
                 preview={false}
-                style={{ zIndex: "2000", position: "relative" }}
+                style={{ zIndex: "2000", position: "relative", maxWidth: "161px" }}
               />
             </Col>
           </Row>

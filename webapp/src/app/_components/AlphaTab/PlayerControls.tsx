@@ -22,8 +22,10 @@ export default function PlayerControls() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
+  const playStart = !isPlaying && progress === 0;
+
   const handleStop = () => {
-    if (isPlaying) apiInstance.stop();
+    apiInstance.stop();
   };
 
   const handlePlayPause = () => {
@@ -35,15 +37,15 @@ export default function PlayerControls() {
       <Tooltip title="libo" style={{ marginLeft: "auto" }}>
         <Button
           size="large"
-          disabled={isPlaying && progress === 0}
+          // disabled={progress === 0}
           icon={<AppIcon name="backward-2" />}
           onClick={handleStop}
         />
       </Tooltip>
-      <Tooltip title={isPlaying ? "pause" : "play"}>
+      <Tooltip title={playStart ? "play" : "pause"}>
         <Button
           size="large"
-          icon={<AppIcon name={isPlaying ? "pause-2" : "play-2"} />}
+          icon={<AppIcon name={playStart ? "play-2" : "pause-2"} />}
           onClick={handlePlayPause}
           className={isPlaying ? "active" : undefined}
         />

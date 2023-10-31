@@ -1,14 +1,16 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
-import Image from "next/image";
+import { Badge } from "antd";
 import { AlphaTabContext } from "@/app/_store/alphaTab-context";
 import AppIcon from "../UI/AppIcon";
+import { Toggles } from "./TrackControls";
 
 interface TrackItemProps {
   id: string;
   track: Record<any, any>;
+  state: Toggles;
 }
-export default function TrackItem({ id, track }: TrackItemProps) {
+export default function TrackItem({ id, track, state }: TrackItemProps) {
   // const [imgSrc, setImgSrc] = useState(`/icons/keyboard.svg`);
   const { activeTrack, setActiveTrack, apiInstance } = useContext(AlphaTabContext);
 
@@ -32,13 +34,28 @@ export default function TrackItem({ id, track }: TrackItemProps) {
     return "keyboard";
   };
 
-  const handleTrackClick = () => {
+  const classes = () => {
+    let trackClass = `at-track`;
+    if (activeTrack === id) trackClass += ` active`;
+    if (state?.mute) trackClass += ` mute`;
+    if (state?.solo) trackClass += ` solo`;
+    return trackClass;
+  };
+
+  const handleTrackClick = (e: any) => {
+    e.preventDefault();
     setActiveTrack(id);
   };
   return (
-    <div className={`at-track ${activeTrack === id ? "active" : ""}`} onClick={handleTrackClick}>
+    <div className={classes()} onClick={handleTrackClick}>
       <div className="at-track-icon">
-        <AppIcon name={resolveIconByName(track.name)} />
+        <Badge
+          dot={activeTrack === id || state?.solo}
+          color={state?.solo ? "var(--md-sys-color-primary)" : "var(--md-sys-color-tertiary)"}
+          style={{ boxShadow: "none" }}
+        >
+          <AppIcon name={resolveIconByName(track.name)} />
+        </Badge>
       </div>
       <div className="at-track-details">
         <div className="at-track-name">{track.name}</div>

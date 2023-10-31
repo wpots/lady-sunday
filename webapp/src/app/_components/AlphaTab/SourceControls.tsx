@@ -17,6 +17,7 @@ export default function SourceControls() {
   const { apiInstance } = useContext(AlphaTabContext);
   useEffect(() => {
     if (apiInstance) apiInstance.load(songSelected.file);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [songSelected]);
 
   const handleSongSelected = (song: Song) => {
@@ -26,6 +27,7 @@ export default function SourceControls() {
   const handleFileUpload = () => {
     console.log(apiInstance.load(upload?.current?.files?.[0]));
     const reader = new FileReader();
+    // @ts-ignore
     reader.readAsArrayBuffer(upload?.current?.files?.[0]);
     reader.onload = () => {
       apiInstance.load(reader.result);

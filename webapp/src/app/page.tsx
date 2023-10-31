@@ -33,6 +33,7 @@ export default function Home() {
           <Layout style={{ height: "calc(100vh - 152px)" }} hasSider>
             <Sider
               style={{ display: "flex" }}
+              width="270px"
               collapsible
               collapsed={collapsed}
               onCollapse={val => setCollapsed(val)}
@@ -44,19 +45,34 @@ export default function Home() {
               <ScoreCanvas />
             </Content>
           </Layout>
-          <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
-            <Row style={{ gap: ".5rem" }}>
-              <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
-                <SoundControls onTrackControls={() => setCollapsed(!collapsed)} trackControlsOpen={!collapsed} />
-              </Col>
-              <Col span={11} style={{ display: "flex", justifyContent: "center" }}>
-                <PlayerControls />
-              </Col>
-              <Col span={6} style={{ display: "flex", justifyContent: "end" }}>
-                <PlaybackControls />
-              </Col>
-            </Row>
-          </Footer>
+          {/* <ConfigProvider
+            theme={{
+              token: { colorPrimary: "#004f53", colorText: "var(--md-sys-color-on-tertiary-container)" },
+              components: {
+                Button: {
+                  defaultBg: "var(--md-sys-color-tertiary-container)",
+                  defaultBorderColor: "var(--md-sys-color-tertiary-container)",
+                  defaultColor: "var(--md-sys-color-on-tertiary-container)",
+                  defaultGhostBorderColor: "var(--md-sys-color-on-tertiary-container)",
+                  defaultGhostColor: "var(--md-sys-color-on-tertiary-container)",
+                },
+              },
+            }}
+          > */}
+            <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
+              <Row style={{ gap: ".5rem" }}>
+                <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
+                  <SoundControls onTrackControls={() => setCollapsed(!collapsed)} trackControlsOpen={!collapsed} />
+                </Col>
+                <Col span={11} style={{ display: "flex", justifyContent: "center" }}>
+                  <PlayerControls />
+                </Col>
+                <Col span={6} style={{ display: "flex", justifyContent: "end" }}>
+                  <PlaybackControls />
+                </Col>
+              </Row>
+            </Footer>
+          {/* </ConfigProvider> */}
         </Layout>
       </AlphaTabContextProvider>
     </ConfigProvider>

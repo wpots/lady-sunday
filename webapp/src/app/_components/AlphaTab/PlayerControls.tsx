@@ -14,15 +14,14 @@ export default function PlayerControls() {
   const { apiInstance } = useContext(AlphaTabContext);
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [loop, setLoop] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
 
   useEffect(() => {
     if (apiInstance) apiInstance.playPause();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
-  const playStart = !isPlaying && progress === 0;
+  const playStart = !isPlaying;
 
   const handleStop = () => {
     apiInstance.stop();
@@ -51,7 +50,7 @@ export default function PlayerControls() {
         />
       </Tooltip>
       <Tooltip title="loop" style={{ marginLeft: "auto" }}>
-        <Button ghost={!loop} size="large" icon={<AppIcon name="loop-2" />} onClick={handlePlayPause} />
+        <Button ghost={!isLooping} size="large" icon={<AppIcon name="loop-2" />} onClick={handlePlayPause} />
       </Tooltip>
     </Space>
   );

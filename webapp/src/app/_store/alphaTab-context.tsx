@@ -32,15 +32,10 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
       setScore(score);
     });
 
-    apiInstance.noteMouseUp?.on((note: any) => {
-      console.log("here");
-      apiInstance.playNote(note);
-    });
+    // apiInstance.noteMouseUp?.on((note: any) => {
+    //   apiInstance.playNote(note);
+    // });
   }
-
-  // if (tracks?.length > 0) {
-  //   apiInstance.renderTracks(tracks);
-  // }
 
   const initAlphaTab = useCallback(
     (el: HTMLElement) => {
@@ -48,6 +43,14 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
         const settings = {
           // file: "https://www.alphatab.net/files/canon.gp",
           file: "./maria.gp5",
+          core: {
+            // includeNoteBounds: true,
+          },
+          notation: {
+            elements: {
+              ChordDiagrams: false,
+            },
+          },
           player: {
             enablePlayer: true,
             soundFont: "https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2",
@@ -72,7 +75,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
     tracks,
     activeTrack,
     setActiveTrack,
-    events: (event: string, cb: any) => apiInstance[event as keyof AlphaTabApi].on(cb),
+    events: (event: string, cb: any) => apiInstance[event as keyof AlphaTabApi].on(e => cb(e)),
   };
 
   return (

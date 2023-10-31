@@ -13,10 +13,11 @@ import SoundControls from "./_components/AlphaTab/SoundControls";
 import themeConfig from "./_theme/ladySunday";
 
 import "./page.scss";
+import PlayerFeedback from "./_components/AlphaTab/PlayerFeedback";
 const { Content, Footer, Header, Sider } = Layout;
 
 export default function Home() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   return (
     <ConfigProvider theme={themeConfig}>
       <Branding />
@@ -36,7 +37,6 @@ export default function Home() {
               width="270px"
               collapsedWidth={42}
               collapsible
-              defaultCollapsed={true}
               collapsed={collapsed}
               onCollapse={val => setCollapsed(val)}
               trigger={null}
@@ -47,20 +47,7 @@ export default function Home() {
               <ScoreCanvas />
             </Content>
           </Layout>
-          {/* <ConfigProvider
-            theme={{
-              token: { colorPrimary: "#004f53", colorText: "var(--md-sys-color-on-tertiary-container)" },
-              components: {
-                Button: {
-                  defaultBg: "var(--md-sys-color-tertiary-container)",
-                  defaultBorderColor: "var(--md-sys-color-tertiary-container)",
-                  defaultColor: "var(--md-sys-color-on-tertiary-container)",
-                  defaultGhostBorderColor: "var(--md-sys-color-on-tertiary-container)",
-                  defaultGhostColor: "var(--md-sys-color-on-tertiary-container)",
-                },
-              },
-            }}
-          > */}
+
           <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
             <Row style={{ gap: ".5rem" }}>
               <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
@@ -72,9 +59,11 @@ export default function Home() {
               <Col span={6} style={{ display: "flex", justifyContent: "end" }}>
                 <PlaybackControls />
               </Col>
+              <Col span={11} offset={6}>
+                <PlayerFeedback />
+              </Col>
             </Row>
           </Footer>
-          {/* </ConfigProvider> */}
         </Layout>
       </AlphaTabContextProvider>
     </ConfigProvider>

@@ -24,7 +24,7 @@ import type { ThemeConfig } from 'antd';
 
       },
       Collapse:{contentBg: 'var(--md-sys-color-on-secondary)'},
-      // Collapse:{contentBg: 'var(--md-sys-color-surface)'},
+      Progress: {defaultColor:'var(--md-sys-color-primary)' },
       Layout: {
         headerPadding: '0 1rem',
         footerPadding: '1.5rem 1rem',
@@ -32,7 +32,6 @@ import type { ThemeConfig } from 'antd';
         footerBg:'var(--md-sys-color-background)',
 
         siderBg:'var(--md-sys-color-secondary-container)',
-        // siderBg:'var(--md-sys-color-surface-variant)',
         lightSiderBg:'var(--md-sys-color-secondary-container)',
       },
 

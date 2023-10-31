@@ -19,3 +19,29 @@
   display: flex!important;
   gap:.5rem;
 }
+
+.at-cursor-bar {
+  /* Defines the color of the bar background when a bar is played */
+  background: rgba(#7d4895, 0.15); // var inverse primary
+  border-radius: 2px 0 2px 0;
+}
+
+.at-selection div {
+  /* Defines the color of the selection background */
+  background: rgba(#4c444d, 0.1); //var surface variant
+  border: .1px solid var(--md-sys-color-outline);
+  border-radius: 2px 0 2px 0;
+}
+
+
+.at-cursor-beat {
+  /* Defines the beat cursor */
+  background: var(--md-sys-color-secondary-container);
+  width: 1px;
+}
+
+.at-highlight * {
+  /* Defines the color of the music symbols when they are being played (svg) */
+  fill: var(--md-sys-color-inverse-primary);
+  stroke: var(--md-sys-color-inverse-primary);
+}

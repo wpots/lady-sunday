@@ -34,12 +34,14 @@ export default function Home() {
             <Sider
               style={{ display: "flex" }}
               width="270px"
+              collapsedWidth={42}
               collapsible
+              defaultCollapsed={true}
               collapsed={collapsed}
               onCollapse={val => setCollapsed(val)}
               trigger={null}
             >
-              <TrackList />
+              <TrackList collapsed={collapsed} />
             </Sider>
             <Content style={{ height: "calc(100vh - 217px)", overflowY: "scroll" }} id="scroller">
               <ScoreCanvas />
@@ -59,19 +61,19 @@ export default function Home() {
               },
             }}
           > */}
-            <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
-              <Row style={{ gap: ".5rem" }}>
-                <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
-                  <SoundControls onTrackControls={() => setCollapsed(!collapsed)} trackControlsOpen={!collapsed} />
-                </Col>
-                <Col span={11} style={{ display: "flex", justifyContent: "center" }}>
-                  <PlayerControls />
-                </Col>
-                <Col span={6} style={{ display: "flex", justifyContent: "end" }}>
-                  <PlaybackControls />
-                </Col>
-              </Row>
-            </Footer>
+          <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
+            <Row style={{ gap: ".5rem" }}>
+              <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
+                <SoundControls onTrackControls={() => setCollapsed(!collapsed)} trackControlsOpen={!collapsed} />
+              </Col>
+              <Col span={11} style={{ display: "flex", justifyContent: "center" }}>
+                <PlayerControls />
+              </Col>
+              <Col span={6} style={{ display: "flex", justifyContent: "end" }}>
+                <PlaybackControls />
+              </Col>
+            </Row>
+          </Footer>
           {/* </ConfigProvider> */}
         </Layout>
       </AlphaTabContextProvider>

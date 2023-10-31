@@ -8,14 +8,15 @@ import type { ThemeConfig } from 'antd';
       colorBgContainer: 'var(--md-sys-color-on-secondary-container)',
       colorBgTextHover:'yellow',
       colorTextLightSolid:'var(--md-sys-color-primary)',// tooltip text
-      colorTextDisabled:'var(--md-sys-color-outline-variant)'
+      colorTextDisabled:'var(--md-sys-color-outline-variant)',
+      // colorPrimaryHover:'var(--md-ref-palette-primary10)'
     },
     components: {
       Button: {
         defaultBg:'var(--md-sys-color-secondary-container)',
-        defaultBorderColor:'var(--md-sys-color-secondary)',
+        defaultBorderColor:'var(--md-ref-palette-secondary50)',
         defaultColor:'var(--md-sys-color-on-secondary-container)',
-        defaultGhostBorderColor:'var(--md-sys-color-primary)',
+        defaultGhostBorderColor:'var(--md-ref-palette-secondary50)',
         defaultGhostColor:'var(--md-sys-color-primary)',
         primaryColor:'var(--md-sys-color-on-secondary-container)',
         primaryShadow:'3px -3px var(--md-sys-color-secondary)',// shadow primary button

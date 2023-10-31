@@ -2,8 +2,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { AlphaTabContext } from "../../_store/alphaTab-context";
 
-import { StepBackwardFilled } from "@ant-design/icons";
-import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider } from "antd";
+import { StepBackwardFilled, StopOutlined } from "@ant-design/icons";
+import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider, Badge } from "antd";
 
 // https://alphatab.net/docs/reference/api
 
@@ -12,27 +12,37 @@ export type Toggles = {
   solo?: boolean;
 };
 
-export type TrackToggles = { [id: number]: Toggles };
+export type TrackToggles = { [key: string]: Toggles };
 
 interface ITrackControlsProps {
-  id: number;
+  id: string;
+  idx: number;
   onToggleChange: (toggles: TrackToggles) => void;
 }
 
 import AppIcon from "../UI/AppIcon";
-export default function TrackControls({ id, onToggleChange }: ITrackControlsProps) {
+export default function TrackControls({ id, idx, onToggleChange }: ITrackControlsProps) {
   const { apiInstance } = useContext(AlphaTabContext);
   const [volume, setVolume] = useState(1);
   const [mute, setMute] = useState(false);
   const [solo, setSolo] = useState(false);
 
   useEffect(() => {
-    console.log("d", mute, solo);
-    if (apiInstance && id) apiInstance.changeTrackMute([apiInstance.score.tracks[id]], mute);
-    if (apiInstance && id) apiInstance.changeTrackSolo([apiInstance.score.tracks[id]], solo);
+    if (apiInstance) apiInstance.changeTrackMute([apiInstance.score.tracks[idx]], mute);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mute]);
+
+  useEffect(() => {
+    if (apiInstance) apiInstance.changeTrackSolo([apiInstance.score.tracks[idx]], solo);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [solo]);
+
+  useEffect(() => {
     onToggleChange({ [id]: { mute, solo } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mute, solo]);
+  }, [solo, mute]);
 
   useEffect(() => {
     if (apiInstance) apiInstance.changeTrackVolume = volume;
@@ -44,15 +54,14 @@ export default function TrackControls({ id, onToggleChange }: ITrackControlsProp
   };
 
   const handleToggles = (type: string) => {
-    console.log("h", mute, solo);
     if (type === "mute") {
-      if (!mute && solo) setSolo(!solo);
       setMute(!mute);
+      if (!mute && solo) setSolo(!solo);
     }
 
     if (type === "solo") {
-      if (!solo && mute) setMute(!mute);
       setSolo(!solo);
+      if (!solo && mute) setMute(!mute);
     }
   };
 
@@ -63,6 +72,7 @@ export default function TrackControls({ id, onToggleChange }: ITrackControlsProp
           <Button ghost={!mute} onClick={() => handleToggles("mute")}>
             mute
           </Button>
+
           <Button ghost={!solo} onClick={() => handleToggles("solo")}>
             solo
           </Button>

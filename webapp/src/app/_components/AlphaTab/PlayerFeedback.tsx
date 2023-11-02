@@ -1,8 +1,8 @@
 "use client";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { AlphaTabContext } from "../../_store/alphaTab-context";
 
-import { Flex, Progress, Space } from "antd";
+import { Flex, Progress, Space, Grid } from "antd";
 
 // https://alphatab.net/docs/reference/api
 
@@ -15,16 +15,16 @@ function formatDuration(milliseconds: number) {
   return String(minutes).padStart(2, "0") + ":" + String(seconds).padStart(2, "0");
 }
 
-let previousTime = -1;
 export default function PlayerFeedback() {
   const { apiInstance } = useContext(AlphaTabContext);
   const [progress, setProgress] = useState({ start: 0, end: 0 });
   const [percent, setPercent] = useState(0);
+  const prevTime = useRef(-1);
 
   useEffect(() => {
     apiInstance.playerPositionChanged?.on((e: any) => {
       const currentSeconds = (e.currentTime / 1000) | 0;
-      if (currentSeconds == previousTime) return;
+      if (currentSeconds == prevTime.current) return;
       if (!progress.end) setProgress(p => ({ ...p, end: e.endTime }));
       setProgress(p => ({ ...p, start: e.currentTime }));
     });

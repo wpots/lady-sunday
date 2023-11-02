@@ -3,6 +3,8 @@ import Script from "next/script";
 // @ts-ignore lib should fix typings or package.json exports
 import * as AlphaTabApi from "@coderline/alphatab/dist/alphaTab.d.ts";
 import { useState, useEffect, createContext, useCallback } from "react";
+import { Grid } from "antd";
+const { useBreakpoint } = Grid;
 // https://alphatab.net/docs/reference/api
 interface IScore {
   tracks?: any[];
@@ -25,6 +27,8 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
   const [apiReady, setApiReady] = useState(false);
   const [activeTrack, setActiveTrack] = useState<string>("");
   const [apiInstance, setApiInstance] = useState<any>(false);
+
+  // const screens = useBreakpoint();
 
   if (apiInstance) {
     apiInstance.scoreLoaded?.on((score: any) => {
@@ -51,6 +55,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
               ChordDiagrams: false,
             },
           },
+          display: { barsPerRow: 3 },
           player: {
             enablePlayer: true,
             soundFont: "https://cdn.jsdelivr.net/npm/@coderline/alphatab@latest/dist/soundfont/sonivox.sf2",

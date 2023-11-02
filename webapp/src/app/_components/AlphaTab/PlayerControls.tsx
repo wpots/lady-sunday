@@ -21,6 +21,11 @@ export default function PlayerControls() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (apiInstance) apiInstance.isLooping = isLooping;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLooping]);
+
   const playStart = !isPlaying;
 
   const handleStop = () => {
@@ -31,8 +36,12 @@ export default function PlayerControls() {
     setIsPlaying(prev => !prev);
   };
 
+  const handleLooping = () => {
+    setIsLooping(prev => !prev);
+  };
+
   return (
-    <Space>
+    <Space style={{ display: "flex", justifyContent: "center" }}>
       <Tooltip title="libo" style={{ marginLeft: "auto" }}>
         <Button
           size="large"
@@ -50,7 +59,7 @@ export default function PlayerControls() {
         />
       </Tooltip>
       <Tooltip title="loop" style={{ marginLeft: "auto" }}>
-        <Button ghost={!isLooping} size="large" icon={<AppIcon name="loop-2" />} onClick={handlePlayPause} />
+        <Button ghost={!isLooping} size="large" icon={<AppIcon name="loop-2" />} onClick={handleLooping} />
       </Tooltip>
     </Space>
   );

@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import { Col, Layout, Row, Tooltip, Button, Space, ConfigProvider } from "antd";
+import { useEffect, useState } from "react";
+import { Col, Layout, Row, ConfigProvider, Tooltip, Button } from "antd";
 import AlphaTabContextProvider from "./_store/alphaTab-context";
 import Branding from "./_components/UI/Branding";
 import Overlay from "./_components/AlphaTab/OverLay";
@@ -11,6 +11,7 @@ import PlayerControls from "./_components/AlphaTab/PlayerControls";
 import PlaybackControls from "./_components/AlphaTab/PlaybackControls";
 import SoundControls from "./_components/AlphaTab/SoundControls";
 import themeConfig from "./_theme/ladySunday";
+import AppIcon from "./_components/UI/AppIcon";
 
 import "./page.scss";
 import PlayerFeedback from "./_components/AlphaTab/PlayerFeedback";
@@ -18,6 +19,14 @@ const { Content, Footer, Header, Sider } = Layout;
 
 export default function Home() {
   const [collapsed, setCollapsed] = useState(true);
+  const [siderWidth, setSiderWidth] = useState(42);
+  const [showPlaybackControls, setShowPlaybackControls] = useState(false);
+  useEffect(() => {
+    console.log("parent", showPlaybackControls);
+  }, [showPlaybackControls]);
+  const handlePlaybackControls = (show: boolean) => {
+    setShowPlaybackControls(show);
+  };
   return (
     <ConfigProvider theme={themeConfig}>
       <Branding />
@@ -34,11 +43,12 @@ export default function Home() {
           <Layout style={{ height: "calc(100vh - 152px)" }} hasSider>
             <Sider
               style={{ display: "flex" }}
+              breakpoint="md"
+              onBreakpoint={broken => (broken ? setSiderWidth(0) : setSiderWidth(42))}
               width="270px"
-              collapsedWidth={42}
+              collapsedWidth={siderWidth}
               collapsible
               collapsed={collapsed}
-              onCollapse={val => setCollapsed(val)}
               trigger={null}
             >
               <TrackList collapsed={collapsed} />
@@ -49,17 +59,20 @@ export default function Home() {
           </Layout>
 
           <Footer style={{ position: "fixed", bottom: "0", width: "100%", zIndex: "1000" }}>
-            <Row style={{ gap: ".5rem" }}>
-              <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
+            <Row justify="space-between" gutter={8}>
+              <Col xs={showPlaybackControls ? 0 : undefined} md={6}>
                 <SoundControls onTrackControls={() => setCollapsed(!collapsed)} trackControlsOpen={!collapsed} />
               </Col>
-              <Col span={11} style={{ display: "flex", justifyContent: "center" }}>
+              <Col xs={showPlaybackControls ? 0 : undefined} md={6} flex="1">
                 <PlayerControls />
               </Col>
-              <Col span={6} style={{ display: "flex", justifyContent: "end" }}>
-                <PlaybackControls />
+              <Col xs={showPlaybackControls ? 24 : undefined} md={6}>
+                <PlaybackControls
+                  onPlaybackControls={(val: boolean) => setShowPlaybackControls(val)}
+                  showControls={showPlaybackControls}
+                />
               </Col>
-              <Col span={11} offset={6}>
+              <Col xs={0} md={{ span: 11, offset: 6 }}>
                 <PlayerFeedback />
               </Col>
             </Row>

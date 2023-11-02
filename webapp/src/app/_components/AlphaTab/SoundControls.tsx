@@ -3,8 +3,8 @@ import { SyntheticEvent, useContext, useEffect, useRef, useState } from "react";
 import { AlphaTabContext } from "../../_store/alphaTab-context";
 
 import { StepBackwardFilled } from "@ant-design/icons";
-import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider } from "antd";
-
+import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider, Grid } from "antd";
+const { useBreakpoint } = Grid;
 // https://alphatab.net/docs/reference/api
 
 import "./PlaybackControls.scss";
@@ -18,14 +18,8 @@ interface IPlayerControlsProps {
 export default function SoundControls({ onTrackControls, trackControlsOpen }: IPlayerControlsProps) {
   const { apiInstance } = useContext(AlphaTabContext);
   const [volume, setVolume] = useState(1);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [loop, setLoop] = useState(false);
 
-  useEffect(() => {
-    if (apiInstance) apiInstance.playPause();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlaying]);
+  const screens = useBreakpoint();
 
   useEffect(() => {
     if (apiInstance) apiInstance.masterVolume = volume;
@@ -34,14 +28,6 @@ export default function SoundControls({ onTrackControls, trackControlsOpen }: IP
 
   const handleVolumeChange = (volume: number) => {
     setVolume(volume);
-  };
-
-  const handleStop = () => {
-    if (isPlaying) apiInstance.stop();
-  };
-
-  const handlePlayPause = () => {
-    setIsPlaying(prev => !prev);
   };
 
   return (
@@ -56,16 +42,18 @@ export default function SoundControls({ onTrackControls, trackControlsOpen }: IP
           className={trackControlsOpen ? "active" : undefined}
         />
       </Tooltip>
-      <div className="slider-wrapper">
-        <AppIcon name="sound-2" />
-        <Slider
-          min={0}
-          max={1}
-          onChange={handleVolumeChange}
-          value={typeof volume === "number" ? volume : 0}
-          step={0.1}
-        />
-      </div>
+      {screens.md && (
+        <div className="slider-wrapper">
+          <AppIcon name="sound-2" />
+          <Slider
+            min={0}
+            max={1}
+            onChange={handleVolumeChange}
+            value={typeof volume === "number" ? volume : 0}
+            step={0.1}
+          />
+        </div>
+      )}
     </Space>
   );
 }

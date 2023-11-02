@@ -75,7 +75,7 @@ const AlphaTabContextProvider = ({ children }: { children: React.ReactNode }) =>
     tracks,
     activeTrack,
     setActiveTrack,
-    events: (event: string, cb: any) => apiInstance[event as keyof AlphaTabApi].on(e => cb(e)),
+    events: (event: string, cb: any) => apiInstance[event as keyof AlphaTabApi].on((e: any) => cb(e)),
   };
 
   return (

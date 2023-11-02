@@ -14,7 +14,6 @@ export default function TrackList({ collapsed }: { collapsed: boolean }) {
   const [openTracks, setOpenTracks] = useState<string | string[]>([]);
 
   const handleToggleChange = (toggles: TrackToggles) => {
-    // console.log(toggles);
     setTrackToggles(prevToggles => {
       return {
         ...prevToggles,

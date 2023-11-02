@@ -4,6 +4,7 @@ import { AlphaTabContext } from "@/app/_store/alphaTab-context";
 import { Button, Space } from "antd";
 import { useContext, useEffect, useRef, useState } from "react";
 import AppIcon from "../UI/AppIcon";
+import { UploadOutlined } from "@ant-design/icons";
 
 export type Song = {
   id: number;
@@ -25,7 +26,6 @@ export default function SourceControls() {
   };
 
   const handleFileUpload = () => {
-    console.log(apiInstance.load(upload?.current?.files?.[0]));
     const reader = new FileReader();
     // @ts-ignore
     reader.readAsArrayBuffer(upload?.current?.files?.[0]);
@@ -55,7 +55,7 @@ export default function SourceControls() {
 
       <Button type="primary">
         <label>
-          <AppIcon name="more-2" style={{ width: "10px" }} />
+          <UploadOutlined />
           <input
             type="file"
             id="upload"

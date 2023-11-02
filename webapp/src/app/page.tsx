@@ -21,9 +21,7 @@ export default function Home() {
   const [collapsed, setCollapsed] = useState(true);
   const [siderWidth, setSiderWidth] = useState(42);
   const [showPlaybackControls, setShowPlaybackControls] = useState(false);
-  useEffect(() => {
-    console.log("parent", showPlaybackControls);
-  }, [showPlaybackControls]);
+  useEffect(() => {}, [showPlaybackControls]);
   const handlePlaybackControls = (show: boolean) => {
     setShowPlaybackControls(show);
   };

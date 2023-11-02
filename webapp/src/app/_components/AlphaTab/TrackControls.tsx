@@ -10,6 +10,7 @@ import { Button, Tooltip, Slider, Select, Row, Col, Space, Divider, Badge } from
 export type Toggles = {
   mute?: boolean;
   solo?: boolean;
+  tabs?: boolean;
 };
 
 export type TrackToggles = { [key: string]: Toggles };
@@ -26,6 +27,7 @@ export default function TrackControls({ id, idx, onToggleChange }: ITrackControl
   const [volume, setVolume] = useState(1);
   const [mute, setMute] = useState(false);
   const [solo, setSolo] = useState(false);
+  // const [tabs, setTabs] = useState(false);
 
   useEffect(() => {
     if (apiInstance) apiInstance.changeTrackMute([apiInstance.score.tracks[idx]], mute);
@@ -33,6 +35,16 @@ export default function TrackControls({ id, idx, onToggleChange }: ITrackControl
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mute]);
 
+  // useEffect(() => {
+  //   if (apiInstance) {
+
+  //     apiInstance.staveProfile = tabs ? "Tab" : "Default";
+  //     apiInstance.updateSettings();
+  //     apiInstance.render();
+  //   }
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [tabs]);
   useEffect(() => {
     if (apiInstance) apiInstance.changeTrackSolo([apiInstance.score.tracks[idx]], solo);
 
@@ -54,6 +66,7 @@ export default function TrackControls({ id, idx, onToggleChange }: ITrackControl
   };
 
   const handleToggles = (type: string) => {
+    // if (type === "tabs") return setTabs(!tabs);
     if (type === "mute") {
       setMute(!mute);
       if (!mute && solo) setSolo(!solo);
@@ -69,6 +82,9 @@ export default function TrackControls({ id, idx, onToggleChange }: ITrackControl
     <>
       <Col span={24}>
         <Space style={{ width: "100%", marginBottom: ".5rem", justifyContent: "space-between" }}>
+          {/* <Button ghost={!tabs} onClick={() => handleToggles("tabs")}>
+            tabs
+          </Button> */}
           <Button ghost={!mute} onClick={() => handleToggles("mute")}>
             mute
           </Button>
